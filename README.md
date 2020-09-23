@@ -31,17 +31,8 @@ To avoid putting the `old-dms.cls` file in each LaTeX project, it is possible to
 
 ```
 mkdir -p $HOME/.texmf/tex/latex/old-dms
-
-
-
 sudo /usr/local/texlive/2012/bin/x86_64-linux/tlmgr conf texmf TEXMFHOME $HOME/.texmf
-
-
-
 mv old-dms.cls $HOME/.texmf/tex/latex/old-dms
-
-
-
 mktexlsr $HOME/.texmf
 ```
 
