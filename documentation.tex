@@ -1,0 +1,633 @@
+\documentclass[a4paper, 11pt]{old-dms}
+
+\usepackage{hologo} % Just to display some fancy logos
+
+\title{\bfseries \huge The \texttt{Old DMs} class \\~ \vskip -1 \baselineskip \Large Faster assignments with a vintage look}
+\date{}
+\author{}
+
+
+\begin{document}
+
+
+\maketitle
+
+\inlinecode{text}{Old DMs} is a \LaTeX{} class which simplifies the workflow for quick assignments while providing a vintage look.
+
+It is based on the \inlinecode{text}{article} class, so it keeps all the features while giving shortcuts for commands that are repeatedly used in an assignment-type work.
+
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\newpage
+
+
+\section*{Why is this a thing?}
+\addcontentsline{toc}{section}{Why is this a thing?}
+
+\LaTeX{} is awesome for typesetting large ambitious projects, but it can be too heavy and constraining to use for more modest work. I wanted to be able to get this \LaTeX{} quality and versatility on small documents, or when I'm in a rush. As a student, the documents I happen to work on the most, are assignments.
+
+\inlinecode{text}{Old DMs} is therefore designed to make the workflow for assignments much faster. This documentation gives a glimpse of what this class does and how the documents look. I tried to make it as exhaustive as I could, but I might still be quite imperfect.
+
+
+\section{Installation and usage}
+
+
+\subsection{Installation}
+
+Overleaf users, move directly to \ref{subsec:overleaf-users}.
+
+For these who run a \LaTeX{} distribution on their system, \inlinecode{text}{old_dms.cls} can be downloaded at \url{www.address.com}. 
+
+It requires these custom fonts installed on your system:
+\begin{ul}
+    \item Old Standard TT;
+    \item GFS Baskerville;
+    \item GFS Solomos;
+    \item \TeX{} Gyre Pagella.
+\end{ul}
+
+It also requires Python and the \inlinecode{text}{pygments} package, which can be installed using the following line.
+\begin{codeboxnonos}{text}
+pip install pygments
+\end{codeboxnonos}
+
+For Windows users, make sure Python is on the PATH.
+
+
+\subsection{Compilation}
+
+\inlinecode{text}{Old DMs} use Unicode type fonts, so it compiles with \Hologo{XeLaTeX}. \Hologo{pdfLaTeX} will not work.
+
+This uses the \inlinecode{text}{minted} package, which is based on \inlinecode{text}{pygments}, which needs to be installed. It must therefore be compiled with the \inlinecode{text}{--shell-escape} flag. On an IDE like \TeX \textit{maker}, it can be changed in
+
+\inlinecode{tex}{Options > Configure TeXmaker}
+
+by adding the following line in the XeLaTeX field:
+
+\begin{codeboxnonos}{text}
+xelatex -synctex=1 -interaction=nonstopmode --shell-escape %.tex
+\end{codeboxnonos}
+
+For command-line compilation, just add \inlinecode{text}{--shell-escape} to the command.
+
+\subsection{For Overleaf users}
+\label{subsec:overleaf-users}
+
+If you are on \href{www.overleaf.com}{Overleaf}, you just have to paste the \inlinecode{text}{old-dms.cls} file into your project, start your \inlinecode{text}{.tex} file with
+
+\begin{codeboxnonos}{tex}
+\documentclass[<options>]{old-dms}
+\end{codeboxnonos}
+
+and it should work properly.
+
+
+\subsection{General usage}
+
+This documentation is made with the very \inlinecode{text}{Old DMs} class, and it is meant to show as much as it is possible to do with \inlinecode{text}{Old DMs}. The \inlinecode{text}{.tex} file of this document can be found at \url{www.address.com} to serve as an example.
+
+
+\section{Document look}
+
+This documentation is made with \inlinecode{tex}{Old DMs} class. Reading it should give a glimpse on its classy -- to my standards -- vintage look. The main font used is \textit{Old Standard TT}, which has a bit more retro look than the default \LaTeX{} font.
+
+The \inlinecode{text}{section} titles are centered, but not the \inlinecode{text}{subsection} and \inlinecode{text}{subsubsection} ones.
+
+The paragraphs are not indented, but separated with a little vertical space like
+
+this. Too many indentations can be distracting by constantly breaking the alignment. Paragraphs like this help to maintain a clean look, especially when there are many short chunks of text instead of a rich prose.
+
+Text in paragraphs is justified like in raw \LaTeX{}, and this alignment is optimised to protrude a little bit, when the character before the line break is small, to keep a more balanced overall look, as seen in figure \ref{fig:microtype}.
+
+\fig{figures/microtype.png}{Improved justification example}{fig:microtype}{.4}
+
+The figures are by default centered, and \inlinecode{tex}{.7\textwidth} wide.
+
+Tables are as you want them to be. However, the packages \inlinecode{text}{tabularx} and \inlinecode{text}{booktabs} are included to provide tools for faster and cleaner tables.
+
+As an example, here is a more or less complex table, which should illustrate the look and possibilities: see table \ref{tab:energy}.
+
+\begin{table}[ht!]
+    \centering
+    \caption{Energy states of a proton}
+    \label{tab:energy}
+    \begin{tabularx}{.6\textwidth}{llllXl}
+        \toprule
+        \midrule
+        \multicolumn{6}{l}{Ground state} \\
+        $n$ & $l$ & $m_l$ & $m_s$ &  & Energy $E_1$ (eV)\\
+        \midrule
+        $1$ & $0$ & $0$ & $+1/2$ & & $- 13.6$ \\
+        $1$ & $0$ & $0$ & $-1/2$ & & $- 13.6$ \\
+         & & & & & \\
+        \multicolumn{6}{l}{First excited state} \\
+        $n$ & $l$ & $m_l$ & $m_s$ &  & Energy $E_2$ (eV)\\
+        \midrule
+        $2$ & $0$ & $0$ & $+1/2$ & & $-3.4$ \\
+        $2$ & $0$ & $0$ & $-1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $1$ & $+1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $1$ & $-1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $0$ & $+1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $0$ & $-1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $-1$ & $+1/2$ & & $-3.4$ \\
+        $2$ & $2$ & $-1$ & $-1/2$ & & $-3.4$ \\
+        \midrule
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+Math environments are a bit pimped. Here are some examples:
+
+$$
+e^x = \sum_{n=0}^{+\infty} \frac{x^n}{n!} \;; 
+$$
+
+$$
+\frac{{\hat{\vec p}}^2}{2m}\ket{\Psi(t)} + V\left(\hat{\vec r},t\right)\ket{\Psi(t)} = i\hbar \pdv{}{t}\ket{\Psi(t)} \;;
+$$
+
+$$
+x_\pm = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\;;
+$$
+
+$$
+\int_{-\infty}^{+\infty} e^{-\alpha x^2} \dd{x} = \sqrt\frac{\pi}{\alpha}.
+$$
+
+\inlinecode{text}{Old DMs} changes the bibliography references. They are now in superscript instead of the full size. It mimics the Wikipedia\cite{ref:wikipedia} style and is less distracting.
+
+For code snippets, it is possible to include inline code like this \inlinecode{python}{def f(x):}, or full blocks of code:
+\begin{codeboxnonos}{c}
+#include <stdio.h>
+
+int main() {
+   printf("Hello, World!");
+   return 0;
+}
+\end{codeboxnonos}
+It is also possible to have line numbering -- see \ref{subsec:code}.
+
+
+\section{Macros provided}
+
+
+\subsection{Question numbering}
+
+A custom numbering system is provided for questions, which is independant to section changes. To insert a question number, just use
+
+\inlinecode{tex}{\q}.
+
+It displays a question number which increments each time \inlinecode{tex}{\q} is used. It looks like this:
+
+\q This is the answer to the first question.
+
+\q Now moving to the second question.
+
+\q \dots 
+
+\q \dots{} adding some more \inlinecode{tex}{\q} s \dots
+
+\q \dots
+
+\t
+
+When you have to return to plain text, just put a \inlinecode{tex}{\t}. It tells \LaTeX you're not in a question anymore and adds  some space below the last question.
+
+The question number is a custom counter which is simply named \inlinecode{tex}{question}. So it can be reset by using
+
+\inlinecode{tex}|\setcounter{question}{1}|.
+
+\setcounter{question}{1}
+
+\q The questions will now restart from one.
+
+\t
+
+The \inlinecode{text}{question} counter can be set at any given value.
+
+There is also a subquestion system which can be used with \inlinecode{tex}{\sq}. It looks like this:
+
+\setcounter{question}{1}
+
+\q The question.
+
+\q Another question.
+
+\sq First subquestion.
+
+\sq Second subquestion.
+
+\q \sq \dots
+
+\sq \dots{} Some more subquestions \dots
+
+\sq \dots
+
+\t
+
+Which is obtained using the following code:
+\begin{codeboxnonos}{latex}
+\setcounter{question}{1}
+
+\q The question.
+
+\q Another question.
+
+\sq First subquestion.
+
+\sq Second subquestion.
+
+\q \sq \dots
+
+\sq \dots{} Some more subquestions \dots
+
+\sq \dots
+
+\t
+\end{codeboxnonos}
+
+Subquestions are letters but this can be customized inside the class.
+
+\subsection{Figures}
+
+\inlinecode{text}{Old DMs} provides a macro for figures. To insert a figure, just use
+
+\inlinecode{tex}|\fig{<path>}{<caption>}{<label>}{<width>}|.
+
+\t
+
+\inlinecode{text}{<path>} is just the path of the image you want to put in.
+
+\inlinecode{text}{<caption>} is what will appear in the caption.
+
+\inlinecode{text}{<label>} is the figure label.
+
+\inlinecode{text}{<width>} is the width of the figure according to \inlinecode{tex}{\textwidth}. 1 will make the figure the full text width, 0.5 will make it half as wide as the text. Put nothing in the braces and it will make the figure 0.7 times the width of the text.
+
+\t
+
+For example, this code
+
+\begin{codeboxnonos}{tex}
+\fig{figures/bliss.jpg}{Bliss}{fig:bliss}{.6}
+\end{codeboxnonos}
+
+will provide the following figure (figure \ref{fig:bliss}).
+
+\fig{figures/bliss.jpg}{Bliss}{fig:bliss}{.6}
+
+The macro has the \inlinecode{tex}{[ht!]} parameters in it, so \LaTeX{} will do its best to place the figure where you want it to be.
+
+\p{Multiple figures}~\\
+
+Multiple figures are useful but  quite long to make. It can be slightly simplified by using the following code.
+
+\begin{codeboxnonos}{tex}
+\begin{figure}[ht!]
+    \centering
+    \subfig{figures/1s.png}{1s configuration}{fig:1s}{.3}
+    \subfig{figures/2p.png}{2p configuration}{fig:2p}{.3}\\
+    \subfig{figures/3d.png}{3d configuration}{fig:3d}{.3}
+    \subfig{figures/4f.png}{4f configuration}{fig:4f}{.3}
+    \caption{Atomic orbital shapes}
+    \label{fig:orbitals}
+\end{figure}
+\end{codeboxnonos}
+
+This will give the figure \ref{fig:orbitals}.
+
+\begin{figure}[ht!]
+    \centering
+    \subfig{figures/1s.png}{1s configuration}{fig:1s}{.3}
+    \subfig{figures/2p.png}{2p configuration}{fig:2p}{.3}\\
+    \subfig{figures/3d.png}{3d configuration}{fig:3d}{.3}
+    \subfig{figures/4f.png}{4f configuration}{fig:4f}{.3}
+    \caption{Atomic orbital shapes}
+    \label{fig:orbitals}
+\end{figure}
+
+\inlinecode{tex}{\subfig} works just like \inlinecode{tex}{\fig} and takes the same parameters.
+
+Subfigures can be referenced too: figure \ref{fig:3d}.
+
+I somehow struggled to create a simpler \inlinecode{tex}{multifig} environment that would automatically create the big figure with the caption and label. For more information, feel free to see section \ref{section:issues}.
+
+
+\subsection{Math and physics}
+
+\inlinecode{text}{Old DMs} gives features to write math and physics faster.
+
+For the usual number sets, the following commands
+
+\inlinecode{tex}{\N}, \inlinecode{tex}{\Z}, \inlinecode{tex}{\Q}, \inlinecode{tex}{\R}, \inlinecode{tex}{\C} will display these:
+$$
+\N, \Z, \Q, \R, \C.
+$$
+
+For the powers of ten, this command \inlinecode{tex}|\ee{}| allows to do it easily:
+
+\inlinecode{tex}|h = 6.63\ee{-34} \;\text{J\cdot s}| gives
+
+$$
+h = 6.63\ee{-34} \;\text{J\cdot s}.
+$$
+
+For the units, this class includes the \inlinecode{text}{SIunits} package, which documentation is at \url{https://ctan.org/pkg/siunits}.
+
+As an example, this
+
+\inlinecode{tex}{\unit{1}{\joule} = \unit{1}{\kilo\gram\square\meter\rpsquared\second}} gives
+
+$$
+\unit{1}{\joule} = \unit{1}{\kilo\gram\cdot\meter\squared\cdot\second\rpsquared}.
+$$
+
+In order to give many physics shortcuts, \inlinecode{text}{Old DMs} includes the \inlinecode{text}{physics} package. Some examples of what is possible to do with it:
+
+\inlinecode{tex}{\int \frac{x \dd{x}}{1+x^2}} gives
+$$
+\int \frac{x \dd{x}}{1+x^2} \;;
+$$
+
+\inlinecode{tex}{\dv{u}{t}} gives
+$$
+\dv{u}{t} \;;
+$$
+
+\inlinecode{tex}{\dv[5]{f}{x}} gives
+$$
+\dv[5]{f}{x} \;;
+$$
+
+\inlinecode{tex}{\dv{}{t}\pdv{L}{\dot q_i} - \pdv{L}{q_i} = 0} gives
+$$
+\dv{}{t} \pdv{L}{\dot q_i} - \pdv{L}{q_i} = 0\;;
+$$
+
+\inlinecode{tex}{\bra{\Phi}\ket{\Psi}} gives
+$$
+\bra{\Phi}\ket{\Psi}.
+$$
+
+\p{Note:} the differential operator $\dd$ is here in roman instead of italics. It is a convention that can be changed in the \inlinecode{text}{physics} package inclusion.
+
+There is much more packed in \inlinecode{text}{physics}, so feel free to check the documentation at \url{https://ctan.org/pkg/physics}.
+
+\subsection{Code}
+\label{subsec:code}
+
+Inline snippets and code blocks are possible, both with automatic color highlighting.
+
+To insert a piece of code in an inline code, use
+
+\inlinecode{tex}|\inlinecode{<language>}{<your code>}|.
+
+For example, this \inlinecode{tex}|\inlinecode{python}{def f(x):}|
+
+will give this \inlinecode{python}{def f(x):}.
+
+If your code uses braces like \LaTeX{}, it is possible to use another separator, like \_\dots\_. For example, this 
+
+\inlinecode{tex}|\inlinecode{c}_for(int i=1; i <= j; i++){printf(%d,i)}_|
+
+will give
+
+\inlinecode{c}_for(int i=1; i <= j; i++){printf(%d,i)}_.
+
+For blocks of several lines of codes, the environment \inlinecode{tex}{codebox} is provided:
+
+\begin{codeboxnonos}{tex}
+\begin{codebox}{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def f(x):
+    return -np.exp(-x)
+\end{codebox}
+\end{codeboxnonos}
+
+will give
+
+\begin{codebox}{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+def f(x):
+    return -np.exp(-x)
+\end{codebox}
+
+The environment \inlinecode{tex}{codeboxnonos} will give the same result without line numbering.
+
+These macros are based on the \inlinecode{tex}{minted} package. It is very complete, so feel free to check the documentation here: \url{https://www.ctan.org/pkg/minted}.
+
+To add captions to code boxes, use
+\inlinecode{tex}|\captionof{listing}{<your caption>}|.
+
+For example, this
+\begin{codeboxnonos}{tex}
+\captionof{listing}{"Hello World!" in C.}
+\begin{codebox}{c}
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!");
+    return 0;
+}
+\end{codebox}
+\end{codeboxnonos}
+
+gives
+
+\captionof{listing}{"Hello World!" in C.}
+\begin{codebox}{c}
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!");
+    return 0;
+}
+\end{codebox}
+
+
+\subsection{Lists, tables and other}
+
+\setlength{\parskip}{8pt}
+
+This class provides shortcuts for the environments \inlinecode{text}{itemize} and \inlinecode{text}{enumerate}, which are respectively \inlinecode{text}{ul} and \inlinecode{text}{ol}.
+
+For example
+\begin{codeboxnonos}{tex}
+\begin{ul}
+    \item item 1;
+    \item item 2;
+    \item item 3.
+\end{ul}
+\end{codeboxnonos}
+
+gives
+
+\begin{ul}
+    \item item 1;
+    \item item 2;
+    \item item 3.
+\end{ul}
+
+\inlinecode{tex}{\begin{ol}...\end{ol}} can be used for numbered lists.
+
+For tables, individual cases are so specific that macros are not that useful. However, this class includes \inlinecode{text}{tabularx} for adaptive columns and \inlinecode{text}{booktabs} for cleaner tables.
+
+The example given in table \ref{tab:energy} is obtained with
+\begin{codeboxnonos}{tex}
+\begin{table}[ht!]
+    \centering
+    \caption{Energy states of a proton}
+    \label{tab:energy}
+    \begin{tabularx}{.6\textwidth}{llllXl}
+        \toprule
+        \midrule
+        \multicolumn{6}{l}{Ground state} \\
+        $n$ & $l$ & $m_l$ & $m_s$ &  & Energy $E_1$ (eV)\\
+        \midrule
+        $1$ & $0$ & $0$ & $+1/2$ & & $- 13.6$ \\
+        $1$ & $0$ & $0$ & $-1/2$ & & $- 13.6$ \\
+         & & & & & \\
+        \multicolumn{6}{l}{First excited state} \\
+        $n$ & $l$ & $m_l$ & $m_s$ &  & Energy $E_2$ (eV)\\
+        \midrule
+        $2$ & $0$ & $0$ & $+1/2$ & & $-3.4$ \\
+        $2$ & $0$ & $0$ & $-1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $1$ & $+1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $1$ & $-1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $0$ & $+1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $0$ & $-1/2$ & & $-3.4$ \\
+        $2$ & $1$ & $-1$ & $+1/2$ & & $-3.4$ \\
+        $2$ & $2$ & $-1$ & $-1/2$ & & $-3.4$ \\
+        \midrule
+        \bottomrule
+    \end{tabularx}
+\end{table}
+\end{codeboxnonos}
+
+\inlinecode{text}{tabularx} takes a width parameter. The column type \inlinecode{text}{X} is left-aligned with adaptive width to let the table take the width given. \inlinecode{text}{Y} is for centered adaptive columns.
+
+The documentations of \inlinecode{text}{booktabs} and \inlinecode{text}{tabularx} can be found at\\ \url{https://www.ctan.org/pkg/booktabs} and\\ \url{https://www.ctan.org/pkg/tabularx}.
+
+
+\section{Package inclusions}
+
+Here is a list of all packages included in the class.
+
+\begin{tabularx}{.5\textwidth}{rl}
+    Encoding & \texttt{inputenc}\\
+     & \texttt{fontenc}\\
+    Geometry and color & \texttt{xcolor}\\
+     & \texttt{graphicx}\\
+     & \texttt{setspace}\\
+     & \texttt{fancyhdr}\\
+     & \texttt{mdframed}\\
+    Typography & \texttt{microtype}\\
+    Figures and tables improvement & \texttt{tabularx}\\
+     & \texttt{booktabs}\\
+     & \texttt{caption}\\
+    Fonts and symbols & \texttt{amsfonts}\\
+     & \texttt{mathrsfs}\\
+     & \texttt{amsmath}\\
+     & \texttt{mathspec}\\
+    Nerdy stuff & \texttt{empheq}\\
+    & \texttt{physics}\\
+    & \texttt{SIunits}\\
+    Bibliography & \texttt{natbib}\\
+    Miscellaneous & \texttt{hyperref}\\
+    Code & \texttt{minted}\\
+\end{tabularx}
+
+
+\section{Adaptation and customization}
+
+
+\subsection{Language}
+
+It is possible to change the language of the document using the \inlinecode{text}{polyglossia} package. It changes the table of contents, list of figures, list of tables headers, and the figures and tables captions.
+
+However it does nothing for the listing captions and list of listings. To change these to French, for example, use
+\begin{codeboxnonos}{tex}
+\renewcommand{\listingscaption}{Code source} % caption change
+\renewcommand{\listoflistingscaption}{Liste des codes sources} % lol header change
+\end{codeboxnonos}
+
+
+\subsection{Page layout}
+
+The geometry, margins, and page size are like vanilla \LaTeX{}. It can be changed using the geometry package to suit everyone's taste.
+
+\inlinecode{text}{Old DMs} uses \inlinecode{text}{fancyhdr} to change the headers and footers setup. It displays nothing on the header, and the folio on the right footer.
+
+The class can take a \inlinecode{text}{twoside} argument, just like \inlinecode{text}{article}, which changes the layout to put asymmetrical margins, and the folios on the outside part of the footer.
+
+For more header and footer customization, check \url{https://www.ctan.org/pkg/fancyhdr}.
+
+
+\section{Issues}
+\label{section:issues}
+
+
+\subsection{Possible compilation errors}
+
+If compilation fails, make sure your \LaTeX{} distribution is up to date, and that compilation is made with \Hologo{XeLaTeX}.
+
+If \inlinecode{text}{minted} spits obscure errors, try to delete the \inlinecode{text}{_minted-main} folder and recompile.
+
+
+\subsection{Problems within the class}
+
+Big figure environment
+
+Environments for tables
+
+Compilation time with \TeX\textit{maker}
+
+\newpage
+
+
+\section{Sauce}
+
+Here is \inlinecode{text}{Old DMs}'s source code. It is also avaliable at \url{http://address.com}.
+
+\captionof{listing}{\texttt{old-dms.cls}}
+
+\smallskip
+
+\hrule
+\smallskip
+\inputminted[breaklines, fontsize=\small, linenos, tabsize=2]{tex}{old-dms.cls}
+\hrule
+
+\t
+
+\newpage
+
+
+\addcontentsline{toc}{section}{References}
+\begin{thebibliography}{9}
+	\bibitem{ref:wikipedia}
+	  wikipedia.org,
+	  LaTeX -- Wikipedia.
+	  \url{https://en.wikipedia.org/wiki/LaTeX}.
+\end{thebibliography}
+
+
+\listoffigures
+\addcontentsline{toc}{section}{List of Figures}
+
+
+\listoftables
+\addcontentsline{toc}{section}{List of Tables}
+
+
+\listoflistings
+\addcontentsline{toc}{section}{List of Listings}
+
+
+\end{document}
