@@ -31,17 +31,8 @@ To avoid putting the `old-dms.cls` file in each LaTeX project, it is possible to
 
 ```
 mkdir -p $HOME/.texmf/tex/latex/old-dms
-
-
-
 sudo /usr/local/texlive/2012/bin/x86_64-linux/tlmgr conf texmf TEXMFHOME $HOME/.texmf
-
-
-
 mv old-dms.cls $HOME/.texmf/tex/latex/old-dms
-
-
-
 mktexlsr $HOME/.texmf
 ```
 
@@ -84,7 +75,7 @@ The class introduction is done as follows:
 
 ```
 
-`Old DMs`  is inherited from the `article` class, so it takes the same options. For more information see \url{https://www.ctan.org/pkg/article}.
+`Old DMs`  is inherited from the `article` class, so it takes the same options. For more information see https://www.ctan.org/pkg/article.
 
 Then, rock the good old \inlinecode{tex}_\begin{document}_,. The features provided by this class are explained further in the documentation.
 
