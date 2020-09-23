@@ -31,14 +31,13 @@ It is based on the \inlinecode{text}{article} class, so it keeps all the feature
 \inlinecode{text}{Old DMs} is therefore designed to make the workflow for assignments much faster. This documentation gives a glimpse of what this class does and how the documents look. I tried to make it as exhaustive as I could, but I might still be quite imperfect.
 
 
-\section{Installation and usage}
-
-
-\subsection{Installation}
+\section{Installation}
 
 Overleaf users, move directly to \ref{subsec:overleaf-users}.
 
-For these who run a \LaTeX{} distribution on their system, \inlinecode{text}{old_dms.cls} can be downloaded at \url{www.address.com}. 
+\subsection{Requirements}
+
+For these who run a \LaTeX{} distribution on their system, \inlinecode{text}{old-dms.cls} can be downloaded at \url{www.address.com}. 
 
 It requires these custom fonts installed on your system:
 \begin{ul}
@@ -56,6 +55,83 @@ pip install pygments
 For Windows users, make sure Python is on the PATH.
 
 
+\subsection{Linux with \TeX{} Live}
+
+To avoid putting the \inlinecode{text}{old-dms.cls} file in each \LaTeX{} project, it is possible to properly install this class on your \TeX Live distribution. If you already have a local \TeX MF directory, put the \inlinecode{text}{old-dms.cls} in it. If not, use the following commands\cite{ref:installation-texlive} to create one:
+\begin{codeboxnonos}{text}
+mkdir -p $HOME/.texmf/tex/latex/old-dms
+
+sudo /usr/local/texlive/2012/bin/x86_64-linux/tlmgr conf texmf TEXMFHOME $HOME/.texmf
+
+mv old-dms.cls $HOME/.texmf/tex/latex/old-dms
+
+mktexlsr $HOME/.texmf
+\end{codeboxnonos}
+
+The class should be properly installed on your distribution.
+
+\subsection{Windows with \Hologo{MiKTeX}}
+
+To avoid putting the \inlinecode{text}{old-dms.cls} file in each \LaTeX{} project, it is possible to properly install this class on your \Hologo{MiKTeX} distribution using the following steps\cite{ref:installation-miktex}. 
+
+\begin{ul}
+
+\item{
+Create a local \TeX MF directory, for example:
+\begin{codeboxnonos}{text}
+C:\Users\<you>\localtexmf\
+\end{codeboxnonos}
+}
+
+\item{
+Then, create a \inlinecode{text}{tex\latex} directory inside \inlinecode{text}{localtexmf}, and again, create a directory named \inlinecode{text}{old-dms} and put your \inlinecode{text}{old-dms.cls} file in it. \textit{In fine} it should look like this: 
+\begin{codeboxnonos}{text}
+C:\Users\<you>\localtexmf\tex\latex\old-dms\old-dms.cls
+\end{codeboxnonos}
+}
+
+\item{
+Open \Hologo{MiKTeX} console, go to \inlinecode{text}{Settings}, \inlinecode{text}{Directories} tab, click on the \inlinecode{text}{add} button, and add your \TeX MF path:
+\begin{codeboxnonos}{text}
+C:\Users\<you>\localtexmf\
+\end{codeboxnonos}
+}
+
+\item{
+Then, go to the \inlinecode{text}{tasks} tab, and run \inlinecode{text}{Refresh file name database}.
+}
+
+\end{ul}
+
+The class should be now installed on your computer, and \inlinecode{text}{.tex} files should compile with it, without the \inlinecode{text}{.cls} having to be in the same folder.
+
+
+\section{Usage}
+
+
+\subsection{Document preamble}
+
+The class introduction is done as follows:
+\begin{codeboxnonos}{text}
+\documentclass[<options>]{old-dms}
+\end{codeboxnonos}
+
+\inlinecode{text}{Old DMs} is inherited from the \inlinecode{text}{article} class, so \inlinecode{text}{old-dms} takes the same options. For more information see \url{https://www.ctan.org/pkg/article}.
+
+Then, rock the good old \inlinecode{tex}_\begin{document}_. The features provided by this class are explained further in the documentation.
+
+\subsection{For Overleaf users}
+\label{subsec:overleaf-users}
+
+If you are on \href{www.overleaf.com}{Overleaf}, you just have to paste the \inlinecode{text}{old-dms.cls} file into your project, start your \inlinecode{text}{.tex} file with
+
+\begin{codeboxnonos}{tex}
+\documentclass[<options>]{old-dms}
+\end{codeboxnonos}
+
+and it should work properly.
+
+
 \subsection{Compilation}
 
 \inlinecode{text}{Old DMs} use Unicode type fonts, so it compiles with \Hologo{XeLaTeX}. \Hologo{pdfLaTeX} will not work.
@@ -71,22 +147,6 @@ xelatex -synctex=1 -interaction=nonstopmode --shell-escape %.tex
 \end{codeboxnonos}
 
 For command-line compilation, just add \inlinecode{text}{--shell-escape} to the command.
-
-\subsection{For Overleaf users}
-\label{subsec:overleaf-users}
-
-If you are on \href{www.overleaf.com}{Overleaf}, you just have to paste the \inlinecode{text}{old-dms.cls} file into your project, start your \inlinecode{text}{.tex} file with
-
-\begin{codeboxnonos}{tex}
-\documentclass[<options>]{old-dms}
-\end{codeboxnonos}
-
-and it should work properly.
-
-
-\subsection{General usage}
-
-This documentation is made with the very \inlinecode{text}{Old DMs} class, and it is meant to show as much as it is possible to do with \inlinecode{text}{Old DMs}. The \inlinecode{text}{.tex} file of this document can be found at \url{www.address.com} to serve as an example.
 
 
 \section{Document look}
@@ -582,11 +642,17 @@ If \inlinecode{text}{minted} spits obscure errors, try to delete the \inlinecode
 
 \subsection{Problems within the class}
 
-Big figure environment
+\p{Multi figure environment}~\\
 
-Environments for tables
+I struggled to create a big environment for multi-figures. Subfigures are currently wrapped in one \inlinecode{text}{figure} environment. The problem is, it is hard to create a custom environment with parameters which are called on the \inlinecode{tex}_\end{environment}_.
 
-Compilation time with \TeX\textit{maker}
+\p{Environments for tables}~\\
+
+Tables are all unique, I did not achieve to create someting to normalize their form or simplify their usage in \LaTeX.
+
+\p{Compilation time with \TeX\textit{maker}}~\\
+
+\inlinecode{text}{minted} does take a lot of resources, if you have many code boxes. The compilation time, especially with \TeX maker, can be a bit long.
 
 \newpage
 
@@ -610,11 +676,19 @@ Here is \inlinecode{text}{Old DMs}'s source code. It is also avaliable at \url{h
 
 
 \addcontentsline{toc}{section}{References}
-\begin{thebibliography}{9}
+\begin{thebibliography}{9}	  
+	\bibitem{ref:installation-texlive}
+		Install custom .cls using TeX Live in local directory -- TeX -- LaTeX Stack Exchange.
+		\url{https://tex.stackexchange.com/questions/96976/install-custom-cls-using-tex-live-in-local-directory}
+		
+	\bibitem{ref:installation-miktex}
+		Installing a class -- TeX - LaTeX Stack Exchange.
+		\url{https://tex.stackexchange.com/questions/10498/installing-a-class}
+
 	\bibitem{ref:wikipedia}
-	  wikipedia.org,
-	  LaTeX -- Wikipedia.
-	  \url{https://en.wikipedia.org/wiki/LaTeX}.
+		wikipedia.org,
+		LaTeX -- Wikipedia.
+		\url{https://en.wikipedia.org/wiki/LaTeX}.
 \end{thebibliography}
 
 
