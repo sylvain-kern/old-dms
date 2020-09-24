@@ -81,7 +81,7 @@ Then, rock the good old \inlinecode{tex}_\begin{document}_,. The features provid
 
 ### For Overleaf users
 
-If you are on Overleaf, you just have to paste the `old-dms.cls` file into yourproject, start your `.tex`file with
+If you are on Overleaf, you just have to paste the `old-dms.cls` file into yourproject, start your `.tex` file with
 
 ```tex
 \documentclass[<options>]{old-dms}
