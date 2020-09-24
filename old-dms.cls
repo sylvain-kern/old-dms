@@ -166,10 +166,7 @@
 
 \let\TOC\beautifultableofcontents
 \renewcommand{\tableofcontents}{
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{2pt}
 \TOC
-\setlength{\parskip}{8pt}
 }
 
 %	Centered sections
@@ -254,8 +251,7 @@
 %       DOCUMENT CONFIGURATION          %
 %=======================================%
 
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{8pt}
+\usepackage{parskip}
 
 \renewcommand{\headrulewidth}{0pt}
 \pagestyle{fancyplain} %header
